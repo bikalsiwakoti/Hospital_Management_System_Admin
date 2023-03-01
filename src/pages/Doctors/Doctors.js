@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, Outlet } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar/Sidebar'
 
 
@@ -9,7 +10,7 @@ function Doctors() {
     <div className='all-cointainer'>
         <div className='dashboard-contain'>
           <h4>Doctor</h4>
-          <button className='btn btn-primary text-white my-3 ms-auto d-flex align-items-center fw-normal me-4 py-2'><i className='bx bx-plus fw-bold fs-5 px-1'></i> ADD DOCTOR</button>
+          <Link to='/doctors/add' style={{ textDecoration: 'none', color: 'initial' }}><button className='btn btn-primary text-white my-3 ms-auto d-flex align-items-center fw-normal me-4 py-2'><i className='bx bx-plus fw-bold fs-5 px-1'></i> ADD DOCTOR</button></Link>
           <div className='cointainer'>
             <table class="table  table-striped">
               <thead>
@@ -44,6 +45,7 @@ function Doctors() {
           </div>
         </div>
       </div>
+      <Outlet/>
     </>
   )
 }

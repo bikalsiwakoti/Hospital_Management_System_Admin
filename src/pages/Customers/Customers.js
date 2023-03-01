@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, Outlet } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar/Sidebar'
 
 function Customers() {
@@ -8,7 +9,8 @@ function Customers() {
       <div className='all-cointainer'>
         <div className='dashboard-contain'>
           <h4>Customer</h4>
-          <button className='btn btn-primary text-white my-3 ms-auto d-flex align-items-center fw-normal me-4 py-2'><i className='bx bx-plus fw-bold fs-5 px-1'></i> ADD CUSTOMERS</button>
+          <Link to='/customers/add' style={{ textDecoration: 'none', color: 'initial' }}><button className='btn btn-primary text-white my-3 ms-auto d-flex align-items-center fw-normal me-4 py-2'><i className='bx bx-plus fw-bold fs-5 px-1'></i> ADD Customer</button></Link>
+          
           <div className='cointainer'>
 
             <table class="table  table-striped">
@@ -45,6 +47,7 @@ function Customers() {
           </div>
         </div>
       </div>
+      <Outlet/>
     </>
   )
 }
