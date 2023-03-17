@@ -55,3 +55,24 @@ table thead {
 .cointainer{
   width: 98%;
 }
+
+.editBtn {
+  font-size: 2rem;
+  color: green;
+  background-color: var(--main-bg);
+  cursor: pointer;
+
+}
+
+.deleteBtn {
+  font-size: 2rem;
+  color: red;
+  background-color: var(--main-bg);
+  cursor: pointer;
+  
+}
+
+td img {
+  height: 70px;
+  width: 70px;
+}

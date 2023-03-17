@@ -21,7 +21,6 @@ function Sidebar() {
     setClicked(!clicked);
   };
 
-  console.log(barList)
 
   return (
     <nav>
