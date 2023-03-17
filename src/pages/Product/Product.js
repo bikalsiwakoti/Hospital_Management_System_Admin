@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import { Link, Outlet } from 'react-router-dom'
+import { fetchData } from '../../redux/slices/ProductSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify';
+
+
 
 
 function Product() {
+
+  const dispatch = useDispatch()
+  const product = useSelector(state => state.product)
+
+  useEffect(() => {
+    dispatch(fetchData())
+  }, [])
+
+  console.log(product)
   return (
     <>
       <Sidebar />
@@ -18,35 +32,35 @@ function Product() {
                 <tr>
                   <th scope="col">S.N</th>
                   <th scope="col">Product Name</th>
+                  <th scope="col">Img</th>
                   <th scope="col">Price</th>
-                  <th scope="col">Type</th>
+                  {/* <th scope="col">Available Quantity</th> */}
+                  <th scope="col">Genre</th>
+                  <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
+                {product.data?.map((data, i) => {
+                  return (
+                    <tr key={data.id}>
+                      <th scope="row">{i + 1}</th>
+                      <td>{data.name}</td>
+                      {/* <td>{data.img}</td> */}
+                      <td><img src={`http://localhost:5000/images/${data.img}`} alt="product image"></img></td>
+                      <td>{data.price}</td>
+                      {/* <td>{data.availableQuantity}</td> */}
+                      <td>{data.genre}</td>
+                      <td><Link style={{ textDecoration: 'none', color: 'initial' }} to={`/products/edit/${data.id}`}><i class='bx bxs-edit editBtn' ></i> </Link> <Link to={`/products/delete/${data.id}`} style={{ textDecoration: 'none', color: 'initial' }}><i class='bx bx-x deleteBtn' ></i></Link></td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
-
           </div>
         </div>
       </div>
       <Outlet />
+      <ToastContainer/>
 
     </>
   )
