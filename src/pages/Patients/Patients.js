@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import { fetchData } from '../../redux/slices/OrderSlice'
+import { fetchData } from '../../redux/slices/PatientSlice'
 import { Link, Outlet } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
-import './Orders.css'
+import './Patients.css'
 
 
-function Orders() {
+function Patients() {
   const dispatch = useDispatch()
-  const orders = useSelector(state => state?.order)
+  const patients = useSelector(state => state?.patient)
 
   useEffect(() => {
     dispatch(fetchData())
@@ -26,23 +26,22 @@ function Orders() {
               <thead>
                 <tr>
                   <th scope="col">S.N</th>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Payment Type</th>
-                  <th scope="col">Status</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Phone Number</th>
+                  <th scope="col">Health Issue</th>
+                  <th scope="col">Date Of Appointment</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {orders?.data.map((order, i) => {
+                {patients?.data.map((patient, i) => {
                   return (<tr>
                     <th scope="row">{i + 1}</th>
-                    <td>{order.firstname}</td>
-                    <td>{order.address}</td>
-                    <td>{order.order_payment}</td>
-                    <td className='orderStatus'>{order.status || "NO"}</td>
-                    <td><Link style={{ textDecoration: 'none', color: 'initial' }} to={`/orders/edit/${order.id}`}><i class='bx bxs-edit editBtn' ></i> </Link> <Link to={`/orders/show/${order.id}`} style={{ textDecoration: 'none', color: 'initial' }}><i class='bx bx-show viewBtn'></i></Link></td>
-
+                    <td>{patient.firstName} {patient.lastName}</td>
+                    <td>{patient.phoneNumber}</td>
+                    <td>{patient.healthIssue}</td>
+                    <td >{patient.dateOfAppointment}</td>
+                    <td><Link to={`/patients/show/${patient.id}`} style={{ textDecoration: 'none', color: 'initial' }}><i class='bx bx-show viewBtn'></i></Link> <Link style={{ textDecoration: 'none', color: 'initial' }} to={`/patients/mail/${patient.id}`}> <i class='bx bxs-envelope mailBtn'></i></Link></td>
                   </tr>)
                 })
                 }
@@ -52,10 +51,10 @@ function Orders() {
           </div>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
       <Outlet />
     </>
   )
 }
 
-export default Orders
+export default Patients

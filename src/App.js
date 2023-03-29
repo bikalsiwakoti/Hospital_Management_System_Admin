@@ -17,6 +17,11 @@ import EditCustomer from "./components/modals/Customer/EditCustomer"
 import DeleteCustomer from "./components/modals/Customer/DeleteCustomer"
 import DeleteDoctor from "./components/modals/Doctor/DeleteDoctor"
 import EditStaff from "./components/modals/Staff/EditStaff"
+import ShowOrder from "./components/modals/Order/ShowOrder"
+import EditOrder from "./components/modals/Order/EditOrder"
+import Patients from "./pages/Patients/Patients"
+import ShowPatient from "./components/modals/Patient/ShowPatient"
+import PatientMail from "./components/modals/Patient/PatientMail"
 
 
 
@@ -29,7 +34,17 @@ function App() {
           <Route path={'add'} element={<AddProducts />} />
           <Route path={'delete/:id'} element={<DeleteProduct />} />
         </Route>
-        <Route path={'/orders'} element={<Orders />} />
+
+        <Route path={'/patients'} element={<Patients />}>
+          <Route path={'show/:id'} element={<ShowPatient />} />
+          <Route path={'mail/:id'} element={<PatientMail />} />
+
+        </Route>
+
+        <Route path={'/orders'} element={<Orders />}>
+          <Route path={'show/:id'} element={<ShowOrder />} />
+          <Route path={'edit/:id'} element={<EditOrder />} />
+        </Route>
         <Route path={'/doctors'} element={<Doctors />}>
           <Route path={'add'} element={<AddDoctors />} />
           <Route path={'delete/:id'} element={<DeleteDoctor />} />

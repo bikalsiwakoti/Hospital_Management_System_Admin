@@ -23,6 +23,12 @@ export const SidebarList = [
 
   },
   {
+    title: "Patients",
+    url: "/patients",
+    icon:'bxs-user'
+
+  },
+  {
     title: "Staffs",
     url: "/staffs",
     icon:'bx-user'
