@@ -59,9 +59,19 @@ table thead {
 .editBtn {
   font-size: 2rem;
   color: green;
-  background-color: var(--main-bg);
   cursor: pointer;
+}
 
+.viewBtn {
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.751);
+  cursor: pointer;
+}
+
+.mailBtn{
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.79) !important;;
+  cursor: pointer;
 }
 
 .deleteBtn {

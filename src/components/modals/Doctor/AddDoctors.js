@@ -26,11 +26,13 @@ export default function AddDoctors() {
       //     theme: "colored"
       //   });
       // }
+      console.log(doctorDataForState)
       const res = await axios.post('/doctor/registerDoctor', doctorDataForState, {
         headers: {
           "Content-Type": "multipart/form-data",
         }
       })
+    
       dispatch(addDoctorData({...doctorData, id: res.data.id, img: img}))
       console.log(res.data)
       toast.success('Successfully Added', {
@@ -96,8 +98,12 @@ export default function AddDoctors() {
             <div className="input-group mb-3">
               <input type="text" name="confirm_password" onChange={handleChange} className="form-control" placeholder="Confirm Password" id="confirm_password" />
             </div>
+
             <div className="input-group mb-3">
               <input type="text" name="phone_number" onChange={handleChangeForDoctor} className="form-control" placeholder="Enter Phone Number" id="phoneNumber" />
+            </div>
+            <div className="input-group mb-3">
+              <input type="text" name="price" onChange={handleChangeForDoctor} className="form-control" placeholder="Enter Price" id="price" />
             </div>
             <div className="input-group mb-3">
               <input type="number" name="age" onChange={handleChangeForDoctor} className="form-control" placeholder="Enter Doctor Age" id="doctorAge" />
