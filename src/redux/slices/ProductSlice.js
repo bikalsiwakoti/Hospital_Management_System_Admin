@@ -8,8 +8,8 @@ const initialState = {
 }
 
 export const fetchData = createAsyncThunk(
-  'product/fetchData', async () => {
-    const res = await axios.get('/product/getAllProduct')
+  'product/fetchData', async (data) => {
+    const res = await axios.get(`/product/getAllProduct?srch=${data.srch}`)
     return res.data
   }
 )

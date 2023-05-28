@@ -33,7 +33,7 @@ export default function EditCustomer() {
       }
       else {
         await axios.put(`/user/updateUser/${id}`, customerData)
-        dispatch(editData({ id: id, newData: {...customerData, role:'user', id: Number(id)} }))
+        dispatch(editData({ id: id, newData: { ...customerData, role: 'user', id: Number(id) } }))
         navigate("/customers")
         toast.success('Successfully Updated', {
           position: "top-right",
@@ -83,11 +83,13 @@ export default function EditCustomer() {
         </Modal.Header>
         <Modal.Body>
           <div className="modal-body">
-            <div className="input-group mb-3">
-              <input type="text" name="username" value={customerData.username} onChange={handleChange} className="form-control" placeholder="Enter User Name" id="username" />
-            </div>
-            <div className="input-group mb-3">
-              <input type="text" name="email" value={customerData.email} onChange={handleChange} className="form-control" placeholder="Enter Customer Email" id="email" />
+            <div class="inputGroup">
+              <input type="text" name="username" value={customerData.username} onChange={handleChange} id="username"></input>
+                <label for="username">Username</label>
+            </div>  
+            <div class="inputGroup">
+              <input type="text" name="email" value={customerData.email} onChange={handleChange} id="email"></input>
+                <label for="email">Email</label>
             </div>
 
           </div>

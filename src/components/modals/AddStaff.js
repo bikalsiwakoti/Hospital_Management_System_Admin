@@ -9,7 +9,9 @@ import axios from "axios";
 
 
 export default function AddStaffs() {
-  const [staffData, setstaffData] = useState("")
+  const [staffData, setstaffData] = useState({
+    name: ""
+  })
   const [staffDataForState, setstaffDataForState] = useState("")
 
   const navigate = useNavigate()
@@ -34,7 +36,7 @@ export default function AddStaffs() {
       })
       navigate("/staffs")
     } catch (error) {
-      toast.error('Failed to post product', {
+      toast.error(error.response.data, {
         position: "top-right",
         theme: "colored"
       })

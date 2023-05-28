@@ -9,8 +9,8 @@ const initialState = {
 
 export const fetchData = createAsyncThunk(
   'patients/fetchData',
-  async () => {
-    const res = await axios.get('/patient/getPatients');
+  async (data) => {
+    const res = await axios.get(`/patient/getPatients?name=${data.name}`);
     return res.data;
   }
 );
