@@ -9,8 +9,8 @@ const initialState = {
 
 export const fetchData = createAsyncThunk(
   'order/fetchData',
-  async () => {
-    const res = await axios.get('/order/getAllOrder');
+  async (data) => {
+    const res = await axios.get(`/order/getAllOrder?name=${data.name}`);
     return res.data;
   }
 );

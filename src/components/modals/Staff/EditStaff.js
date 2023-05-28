@@ -29,17 +29,17 @@ export default function EditStaff() {
       // }
       const res = await axios.put(`/staff/editStaff/${id}`, staffDataForState)
       dispatch(editStaffData({id : id ,newData: staffData}))
-      toast.success('Successfully Added', {
+      toast.success('Successfully Updated', {
         position: "top-right",
         theme: "colored"
       })
       navigate("/staffs")
     } catch (error) {
-      toast.error('Failed to post product', {
+      toast.error(error.response.data.errors[0].message, {
         position: "top-right",
         theme: "colored"
       })
-      console.log(error)
+      console.log(error.response.data.errors[0].message)
     }
   }
 
@@ -102,28 +102,41 @@ export default function EditStaff() {
         <Modal.Body>
 
           <div className="modal-body">
-            <div className="input-group mb-3">
-              <input type="text" value={staffData?.staff?.full_name} name="full_name" onChange={handleChangeForStaff} className="form-control" placeholder="Enter Staff Name" id="StaffName" />
-            </div>
-            <div className="input-group mb-3">
-              <input type="text" value={staffData?.username} name="username" onChange={handleChange} className="form-control" placeholder="Enter User Name" id="userName" />
-            </div>
-            <div className="input-group mb-3">
-              <input type="text" value={staffData?.email} name="email" onChange={handleChange} className="form-control" placeholder="Enter Email" id="email" />
-            </div>
-            <div className="input-group mb-3">
-              <input type="text" value={staffData?.staff?.phone_number} name="phone_number" onChange={handleChangeForStaff} className="form-control" placeholder="Enter Phone Number" id="phoneNumber" />
-            </div>
-            <div className="input-group mb-3">
-              <input type="number" value={staffData?.staff?.age} name="age" onChange={handleChangeForStaff} className="form-control" placeholder="Enter Staff Age" id="StaffAge" />
+            <div class="inputGroup">
+              <input type="text" value={staffData?.staff?.full_name} name="full_name" onChange={handleChangeForStaff} id="StaffName"></input>
+                <label for="StaffName">Fullname</label>
             </div>
 
-            <div className="input-group mb-3">
-              <input type="text" value={staffData?.staff?.gender} name="gender" onChange={handleChangeForStaff} className="form-control" placeholder="Enter Gender" id="StaffGender" />
+            <div class="inputGroup">
+              <input type="text" value={staffData?.username} name="username" onChange={handleChange} id="userName"></input>
+                <label for="userName">Username</label>
             </div>
-            <div className="input-group mb-3">
-              <input type="text" value={staffData?.staff?.address} name="address" onChange={handleChangeForStaff} className="form-control" placeholder="Enter Address" id="StaffAddress" />
+
+            <div class="inputGroup">
+              <input type="text" value={staffData?.email} name="email" onChange={handleChange} id="email"></input>
+                <label for="email">Email</label>
             </div>
+
+            <div class="inputGroup">
+              <input type="text" value={staffData?.staff?.phone_number} name="phone_number" onChange={handleChangeForStaff} id="phoneNumber"></input>
+                <label for="phoneNumber">Phone Number</label>
+            </div>
+
+            <div class="inputGroup">
+              <input type="number" value={staffData?.staff?.age} name="age" onChange={handleChangeForStaff} id="StaffAge" ></input>
+                <label for="StaffAge">Age</label>
+            </div>
+
+            <div class="inputGroup">
+              <input type="text" value={staffData?.staff?.gender} name="gender" onChange={handleChangeForStaff} id="StaffGender" ></input>
+                <label for="StaffGender">Gender</label>
+            </div>
+
+            <div class="inputGroup">
+              <input type="text" value={staffData?.staff?.address} name="address" onChange={handleChangeForStaff} id="StaffAddress"  ></input>
+                <label for="StaffAddress">Address</label>
+            </div>
+
 
             <div className="input-group mb-3">
               <textarea type="text" value={staffData?.staff?.desc} name="desc" onChange={handleChangeForStaff} className="form-control" placeholder="Enter Staff Desciption" id="StaffDesc" />

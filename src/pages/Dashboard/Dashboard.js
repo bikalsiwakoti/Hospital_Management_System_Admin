@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import StatusCard from '../../components/StatusCard/StatusCard'
 import './Dashboard.css'
 import Chart from "react-apexcharts";
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { fetchData } from '../../redux/slices/OrderSlice'
+// import { fetchData } from '../.././redux/slices/CustomerSlice'
+import axios from 'axios'
+import moment from 'moment'
+
 
 const data = {
   options: {
@@ -14,7 +21,7 @@ const data = {
       curve: 'smooth'
     },
     xaxis: {
-      categories: ['jan', 'feb', 'mar', 'apr', 'jun', 'july', 'aug', 'sep']
+      categories: ['mar', 'apr']
     },
     legend: {
       position: 'top'
@@ -26,12 +33,59 @@ const data = {
   series: [
     {
       name: "Products Sales",
-      data: [30, 40, 45, 50, 49, 60, 70, 91]
+      data: [300, 250]
     }
   ]
 }
 
 function Dashboard() {
+  const orders = useSelector(state => state?.order)
+  const customer = useSelector(state => state.customer)
+  const [totalCustomer, setTotalCustomer] = useState("")
+  const [totalDoctor, setTotalDoctor] = useState("")
+  const [totalPatients, setTotalPatients] = useState("")
+
+  const dispatch = useDispatch()
+  const ordersDates = []
+  const totalAmt = []
+
+  orders?.data?.map((order, i) => {
+
+    ordersDates.unshift(moment(order.createdAt).format('MMM-D'))
+    totalAmt.unshift(order.totalAmount)
+  })
+
+  const options = {
+    color: ['#6ab04c'],
+    chart: {
+      background: 'transparent'
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      categories: ordersDates
+    },
+    legend: {
+      position: 'top'
+    },
+    grid: {
+      show: false
+    }
+  }
+  const series = [
+    {
+      name: "Products Sales",
+      data: totalAmt
+    }
+  ]
+
+  useEffect(() => {
+    dispatch(fetchData({ name: "" }))
+    axios.get('/user/getUserLength').then(res => setTotalCustomer(res.data.length)).catch(e => console.log(e))
+    axios.get('/doctor/getAllDoctor?name=').then(res => setTotalDoctor(res.data.length)).catch(e => console.log(e))
+    axios.get('/patient/getPatients?name=').then(res => setTotalPatients(res.data.length)).catch(e => console.log(e))
+  }, [])
   return (
     <>
       <Sidebar />
@@ -43,19 +97,19 @@ function Dashboard() {
             <div className='dashboard-left'>
               <div className='left-cards'>
                 <div className='lCards'>
-                  <StatusCard />
+                  <StatusCard number={orders?.data.length} name={'Total Sales'} />
                 </div>
                 <div className='lCards'>
-                  <StatusCard />
+                  <StatusCard number={totalCustomer} name={'Customer'} />
                 </div>
               </div>
 
               <div className='left-cards'>
                 <div className='lCards'>
-                  <StatusCard />
+                  <StatusCard number={totalDoctor} name={'Doctors'} />
                 </div>
                 <div className='lCards'>
-                  <StatusCard />
+                  <StatusCard number={3} name={'Patients'} />
                 </div>
               </div>
             </div>
@@ -66,8 +120,8 @@ function Dashboard() {
 
                 {/* chart */}
                 <Chart
-                  options={data.options}
-                  series={data.series}
+                  options={options}
+                  series={series}
                   type="line"
                   height="100%"
                 />
@@ -84,48 +138,22 @@ function Dashboard() {
               <tr>
                 <th scope="col">S.N</th>
                 <th scope="col">Order Id</th>
-                <th scope="col">Details</th>
+                <th scope="col">Customer Name</th>
                 <th scope="col">Total Price</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>1888</td>
-                <td>medicine</td>
-                <td>NPR 120</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>1888</td>
-                <td>medicine</td>
-                <td>NPR 120</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>1888</td>
-                <td>medicine</td>
-                <td>NPR 120</td>
-              </tr>
+              {orders?.data.map((order, i) => {
+                return (
+                  <tr>
+                    <th scope="row">{i + 1}</th>
+                    <td>{order.id}</td>
+                    <td>{`${order.firstname} ${order.lastname}`}</td>
+                    <td>NPR {order.totalAmount}</td>
+                  </tr>
+                )
+              })}
 
-              <tr>
-                <th scope="row">4</th>
-                <td>1888</td>
-                <td>medicine</td>
-                <td>NPR 120</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>1888</td>
-                <td>medicine</td>
-                <td>NPR 120</td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>1888</td>
-                <td>medicine</td>
-                <td>NPR 120</td>
-              </tr>
             </tbody>
           </table>
         </div>

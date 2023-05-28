@@ -44,6 +44,7 @@ export default function EditOrder() {
   useEffect(() => {
     axios.get(`/order/getOneOrder/${id}`).then(res => {
       setOrderData(res.data)
+      setStatus(res.data.status)
     }).catch(err => {
       toast.error(err, {
         position: "top-right",
@@ -75,7 +76,7 @@ export default function EditOrder() {
           <div className="modal-body">
             <div class="input-group mb-3">
 
-              <select class="form-select" id="inputGroupSelect01" value={orderData?.status} name="position" onChange={handleChange}>
+              <select class="form-select" id="inputGroupSelect01" value={status} name="position" onChange={handleChange}>
                 <option value="Pending">Pending</option>
                 <option value="Delivered">Delivered</option>
                 <option value="Shipped">Shipped</option>

@@ -42,7 +42,8 @@ function PatientMail() {
         position: "top-right",
         theme: "colored"
       })
-      setLoading(true)
+      setLoading(false)
+      console.log(error)
 
     }
   }

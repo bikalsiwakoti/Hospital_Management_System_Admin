@@ -7,8 +7,8 @@ const initialState = {
   error: null
 }
 
-export const fetchDoctorData = createAsyncThunk('doctor/fetchDoctorData', async () => {
-  const res = await axios.get('/doctor/getAllDoctor')
+export const fetchDoctorData = createAsyncThunk('doctor/fetchDoctorData', async (data) => {
+  const res = await axios.get(`/doctor/getAllDoctor?name=${data.name}`)
   return res.data
 })
 
@@ -24,7 +24,7 @@ export const doctorSlice = createSlice({
       const indexOfData = state.data.findIndex(item => item.id === Number(id))
 
       if (indexOfData !== -1) {
-        state.data[indexOfData] = action.payload
+        state.data[indexOfData] = newData
       }
     },
     deleteDoctorData: (state, action) => {
@@ -41,11 +41,11 @@ export const doctorSlice = createSlice({
       state.loading = true
       state.error = null
       state.data = []
-    }).addCase(fetchDoctorData.fulfilled,(state, action)=>{
+    }).addCase(fetchDoctorData.fulfilled, (state, action) => {
       state.loading = false
       state.error = null
       state.data = action.payload
-    }).addCase(fetchDoctorData.rejected, (state, action)=>{
+    }).addCase(fetchDoctorData.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload
       state.data = []
@@ -54,5 +54,5 @@ export const doctorSlice = createSlice({
 })
 
 
-export const {addDoctorData, editDoctorData, deleteDoctorData} = doctorSlice.actions;
+export const { addDoctorData, editDoctorData, deleteDoctorData } = doctorSlice.actions;
 export default doctorSlice.reducer

@@ -33,7 +33,7 @@ export default function AddDoctors() {
         }
       })
     
-      dispatch(addDoctorData({...doctorData, id: res.data.id, img: img}))
+      dispatch(addDoctorData({...doctorData,['doctor']: { ...doctorData.doctor, img: img }, id: res.data.id}))
       console.log(res.data)
       toast.success('Successfully Added', {
         position: "top-right",
